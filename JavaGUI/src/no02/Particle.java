@@ -2,6 +2,7 @@ package no02;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Random;
 
 import jgc.JsGameCanvas;
 
@@ -10,6 +11,7 @@ public class Particle {
 	//中心点，半径，移动量，移动速度，移动角度
 	private float x, y, r, dx, dy, sp, agl;
 	private float gv;//重力
+	private float alpha;
 	public Particle(float x, float y) {
 		this.x = x;
 		this.y = y;
@@ -18,18 +20,33 @@ public class Particle {
 		agl = (float) (Math.random() * 40) + 70.0f;
 		dx = sp * (float) (Math.cos(Math.toRadians(agl)));
 		dy = sp * -(float) (Math.sin(Math.toRadians(agl)));
-		gv = 0.05f;
+		gv = 0.3f;
 	}
 
 	public void draw(Graphics g) {
+		JsGameCanvas.jgcDrawAlphaOn(g, alpha);
+		Random ran = new Random();
+		this.alpha=ran.nextFloat();
+		int rc = ran.nextInt(255);
+		int gc = ran.nextInt(255);
+		int b = ran.nextInt(255);
+		float r=ran.nextInt(2)+2;
+		Color color = new Color(rc, gc, b);
+		g.setColor(color);
 
-		g.setColor(Color.GREEN);
 		g.fillOval((int) (x - r), (int) (y - r), (int) (r * 5.0f), (int) (r * 5.0f));
 	}
 
 	public void draws(Graphics s) {
-
-		s.setColor(Color.RED);
+		JsGameCanvas.jgcDrawAlphaOn(s, alpha);
+		Random ran = new Random();
+		this.alpha=ran.nextFloat();
+		int rc = ran.nextInt(255);
+		int gc = ran.nextInt(255);
+		int b = ran.nextInt(255);
+		float r=ran.nextInt(2)+1;
+		Color color = new Color(rc, gc, b);
+		s.setColor(color);
 		s.fillOval((int) (x - r), (int) (y - r), (int) (r * 5.0f), (int) (r * 5.0f));
 	}
 
