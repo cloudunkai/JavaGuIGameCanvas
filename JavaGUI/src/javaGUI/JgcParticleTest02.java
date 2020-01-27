@@ -1,7 +1,5 @@
 package javaGUI;
 
-//描画などの為に必要
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
@@ -18,20 +16,17 @@ public class JgcParticleTest02 extends JsGameCanvas {
 
 	//ゲーム初期化
 	protected void jgcGameInit() {
-		pa = new Particle[3000];
+		pa = new Particle[1000];
 		p = null;
 	}
 
 	//ゲームメイン
 	protected void jgcGameMain() {
 
-		if(this.jgcGetKeyTrigger(KeyEvent.VK_UP))
-		{
-			red=true;
-		}
-		else if(this.jgcGetKeyTrigger(KeyEvent.VK_SPACE))
-		{
-			red=false;
+		if (this.jgcGetKeyTrigger(KeyEvent.VK_F5)) {
+			red = true;
+		} else if (this.jgcGetKeyTrigger(KeyEvent.VK_SPACE)) {
+			red = false;
 		}
 		if (this.jgcGetKeyTrigger(KeyEvent.VK_ENTER)) {
 			p = new Particle(this.getWidth() / 2.0f, this.getHeight() - 10.0f);
@@ -47,6 +42,21 @@ public class JgcParticleTest02 extends JsGameCanvas {
 				}
 			}
 		}
+		if (red) {
+			//パーティークル配列の要素をチェックして、
+
+			for (int i = 0; i < pa.length; i = i + 1) {
+
+				//実体がNULLだったときに、
+				if (pa[i] == null) {
+					pa[i] = new Particle(this.jgcGetMouseCursorX(), this.jgcGetMouseCursorY());
+					break;
+					//すべて生成
+				}
+			}
+
+		}
+
 		//spaceキー
 		if (this.jgcGetKeyTrigger(KeyEvent.VK_SPACE)) {
 			//パーティークル配列の要素をチェックして、
@@ -86,11 +96,6 @@ public class JgcParticleTest02 extends JsGameCanvas {
 		if (p != null) {
 			p.draw(g);
 
-		}
-		if (p != null) {
-			g.setColor(Color.WHITE);
-			g.drawString("PX:" + p.getX(), 10, 45);
-			g.drawString("PY:" + p.getY(), 10, 60);
 		}
 		for (int i = 0; i < pa.length; i++) {
 			if (pa[i] != null) {
